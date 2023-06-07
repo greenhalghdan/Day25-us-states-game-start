@@ -10,24 +10,21 @@ score = 0
 STATES = 50
 states = pandas.read_csv("50_states.csv")
 listofstates = states["state"].to_list()
-still_playing = True
+
 while len(correct_gusses) < 50:
-    answer_state = screen.textinput(title=f"Current score is {score}/{STATES}", prompt="enter a guess").title()
+    answer_state = screen.textinput(title=f"{len(correct_gusses)}/50 States Correct", prompt="enter a guess").title()
     if answer_state == "Exit":
         break
-    print(listofstates)
     if answer_state not in correct_gusses:
         correct_gusses.append(answer_state)
         if answer_state in listofstates:
             score += 1
-            turtle = turtle.Turtle()
-            turtle.hideturtle()
-            turtle.penup()
+            d = turtle.Turtle()
+            d.hideturtle()
+            d.penup()
             location = states[states.state == answer_state]
-            y = int(location.x)
-            x = int(location.y)
-            turtle.goto(x, y)
-            turtle.write(answer_state)
+            d.goto(int(location.x), int(location.y))
+            d.write(answer_state)
 statestolearn = []
 with open("states_to_lean.csv", "w") as new_file:
     for state in listofstates:
